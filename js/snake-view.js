@@ -33,6 +33,9 @@
   View.prototype.handleKeyEvent = function (event) {
     if (View.KEYS[event.keyCode]) {
       if (View.KEYS[event.keyCode] === "PAUSE"){
+        if (this.over) {
+          this.board.snake = new SG.Snake(this.board);
+        }
         if (this.running){
         window.clearInterval(window.intervalId);
         this.running = false;
@@ -88,9 +91,11 @@
 
   View.prototype.step = function () {
     if (this.board.snake.segments.length > 0) {
+      //buffer input logic(allows for quick U-turn input)
       if (this.board.snake.array.length > 0) {
         this.board.snake.turn(this.board.snake.array.shift());
       }
+
       if(SG.Score >= 100 * this.speed){
         this.speed +=Math.floor(SG.Score/100);
         window.clearInterval(window.intervalId);
@@ -104,6 +109,8 @@
     } else {
       alert("You Scored " + SG.Score + " points!");
       window.clearInterval(window.intervalId);
+      this.over = true;
+      this.running = false;
     }
   };
 })();
