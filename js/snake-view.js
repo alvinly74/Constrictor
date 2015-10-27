@@ -4,17 +4,14 @@
   }
 
 
-
   var View = SG.View = function ($el) {
     this.$el = $el;
-
-    this.board = new SG.Board(40);
+    this.speed = 1;
+    this.score = SG.Score;
+    this.board = new SG.Board(30);
     this.setupGrid();
-
-    window.intervalId = window.setInterval(
-      this.step.bind(this),
-      View.STEP_MILLIS
-    );
+    this.running = false;
+    this.over = false;
 
     $(window).on("keydown", this.handleKeyEvent.bind(this));
   };
@@ -31,14 +28,27 @@
     32: "PAUSE"
   };
 
-  View.STEP_MILLIS = 75;
+  View.STEP_MILLIS = 101;
 
   View.prototype.handleKeyEvent = function (event) {
     if (View.KEYS[event.keyCode]) {
+      if (View.KEYS[event.keyCode] === "PAUSE"){
+        if (this.running){
+        window.clearInterval(window.intervalId);
+        this.running = false;
+        return;
+      } else {
+        this.running = true;
+        window.intervalId = window.setInterval(
+          this.step.bind(this),
+          (View.STEP_MILLIS - (this.speed))
+        );
+        return;
+      }
+      }
       if (this.board.snake.array.length <3) {
       this.board.snake.array.push(View.KEYS[event.keyCode]);
       }
-        console.log(this.board.snake.array);
     } else {
       // some other key was pressed; ignore.
     }
@@ -80,6 +90,14 @@
     if (this.board.snake.segments.length > 0) {
       if (this.board.snake.array.length > 0) {
         this.board.snake.turn(this.board.snake.array.shift());
+      }
+      if(SG.Score >= 100 * this.speed){
+        this.speed +=Math.floor(SG.Score/100);
+        window.clearInterval(window.intervalId);
+        window.intervalId = window.setInterval(
+          this.step.bind(this),
+          (View.STEP_MILLIS - (this.speed))
+        );
       }
       this.board.snake.move();
       this.render();
