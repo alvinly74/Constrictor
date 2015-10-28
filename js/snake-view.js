@@ -58,8 +58,8 @@
     }
     }
     if (View.KEYS[event.keyCode] && this.running) {
-      if (this.board.snake.array.length <3) {
-      this.board.snake.array.push(View.KEYS[event.keyCode]);
+      if (this.board.snake.inputBuffer.length <3) {
+      this.board.snake.inputBuffer.push(View.KEYS[event.keyCode]);
       }
     } else {
       // some other key was pressed; ignore.
@@ -69,9 +69,8 @@
   View.prototype.render = function () {
     // simple text based rendering
     // this.$el.html(this.board.render());
-// debugger;
-    this.updateClasses([this.board.snake.head()], "head");
     this.updateClasses(this.board.snake.segments, "snake");
+    this.updateClasses([this.board.snake.head()], "head");
     this.updateClasses([this.board.apple.position], "apple");
   };
 
@@ -116,22 +115,20 @@
   View.prototype.step = function () {
     multiUpdate(this.board.apple.surroundings());
     segmentsUpdate(this.board.snake.segments.length);
-    if (this.board.snake.segments.length > 0) {
-      //buffer input logic(allows for quick U-turn input)
-      if (this.board.snake.array.length > 0) {
-        this.board.snake.turn(this.board.snake.array.shift());
-      }
 
+    if (this.board.snake.inputBuffer.length > 0) {
+      this.board.snake.turn(this.board.snake.inputBuffer.shift());
+    }
+    this.board.snake.move();
+    if (this.board.snake.segments.length > 0) {
       if(SG.Score >= 100 * this.speed){
         this.speed = Math.floor(SG.Score/100);
         window.clearInterval(window.intervalId);
-
         window.intervalId = window.setInterval(
           this.step.bind(this),
           (this.computeSpeed())
         );
       }
-      this.board.snake.move();
       this.render();
     } else {
       alertsUpdate("You Scored " + SG.Score + " points!","display", true);

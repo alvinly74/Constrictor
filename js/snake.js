@@ -61,6 +61,7 @@
   };
   Apple.prototype.surroundings = function(){
     var directionCount = 0;
+
     var north = [];
     var east = [];
     var south = [];
@@ -124,11 +125,11 @@
     this.dir = "N";
     this.turning = false;
     this.board = board;
-    this.array = [];
+    this.inputBuffer = [];
     var center = new Coord(Math.floor(board.dim/2), Math.floor(board.dim/2));
     this.segments = [center];
 
-    this.growTurns = 2;
+    this.growTurns = 3;
   };
 
   Snake.DIFFS = {
@@ -144,7 +145,7 @@
       SG.Score += this.segments.length * this.board.apple.surroundings();
       scoreUpdate(SG.Score);
       this.segments = [this.head()];
-      this.growTurns += 100;
+      this.growTurns = 100;
       return true;
     } else {
       return false;
