@@ -7,20 +7,32 @@
   </head>
 
   <body>
-    <h2>Constrictor</h2>
-    <div class="score inline">
-      <h2>Score</h2>
-      <figure id="snake-score">0</figure>
+    <h1>Constrictor</h1>
+    <div id="info">
+      <div class="score">
+        <h2>Score</h2>
+        <number id="snake-score">0</number>
+      </div>
+      <div class="speed">
+        <h2>Speed</h2>
+        <number id="snake-speed">0</number>
+      </div>
+      <div class="multi">
+        <h2>Multiplier</h2>
+        <number id="snake-multi">0</number>
+      </div>
+      <div class="segments">
+        <h2>segments</h2>
+        <number id="snake-segments">0</number>
+      </div>
     </div>
-    <div class="speed inline">
-      <h2>Speed</h2>
-      <figure id="snake-speed">100</figure>
+
+    <div class="howTo">
+      <h2>How to play</h2>
+      <h3>To start, press Spacebar</h3>
+      <h3>Move with WASD, or the arrow keys</h3>
+      <h3>Circle around the apple in order to achieve multiplier!</h3>
     </div>
-    <div class="multi inline">
-      <h2>Multiplier</h2>
-      <figure id="snake-multi">1</figure>
-    </div>
-    <div class="howTo"></div>
     <figure class="snake-game"></figure>
     <script src="../js/jquery-1.9.1.js"></script>
     <script src="../js/snake.js"></script>

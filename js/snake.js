@@ -8,7 +8,11 @@
   };
   speedUpdate = function(speed){
     var $speed = $("#snake-speed")[0];
-    $speed.textContent = speed;
+    $speed.textContent = (100 - speed);
+  };
+  segmentsUpdate = function(segments){
+    var $segments = $("#snake-segments")[0];
+    $segments.textContent = segments;
   };
   var Score = SG.Score = 0;
 
@@ -131,7 +135,7 @@
       SG.Score += this.segments.length * this.board.apple.surroundings();
       scoreUpdate(SG.Score);
       this.segments = [this.head()];
-      this.growTurns += 10000;
+      this.growTurns += 100;
       return true;
     } else {
       return false;

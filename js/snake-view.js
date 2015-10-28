@@ -2,7 +2,7 @@
   if (typeof SG === "undefined") {
     window.SG = {};
   }
-  updateMultiplier = function(number){
+  multiUpdate = function(number){
     var $multiplier = $("#snake-multi")[0];
     $multiplier.textContent = number;
   };
@@ -11,7 +11,7 @@
     this.$el = $el;
     this.speed = 0;
     this.score = SG.Score;
-    this.board = new SG.Board(25);
+    this.board = new SG.Board(20);
     this.setupGrid();
     this.running = false;
     this.over = false;
@@ -34,24 +34,30 @@
   View.STEP_MILLIS = 100;
 
   View.prototype.handleKeyEvent = function (event) {
-    if (View.KEYS[event.keyCode]) {
-      if (View.KEYS[event.keyCode] === "PAUSE"){
-        if (this.over) {
-          this.board.snake = new SG.Snake(this.board);
-        }
-        if (this.running){
-        window.clearInterval(window.intervalId);
-        this.running = false;
-        return;
-      } else {
-        this.running = true;
-        window.intervalId = window.setInterval(
-          this.step.bind(this),
-          (View.STEP_MILLIS - (this.speed))
-        );
-        return;
+    if (View.KEYS[event.keyCode] === "PAUSE"){
+      if (this.over) {
+        this.over = false;
+        multiUpdate(0);
+        speedUpdate(100);
+        scoreUpdate(0);
+        this.speed = 0;
+        SG.Score = 0;
+        this.board.snake = new SG.Snake(this.board);
       }
-      }
+      if (this.running){
+      window.clearInterval(window.intervalId);
+      this.running = false;
+      return;
+    } else {
+      this.running = true;
+      window.intervalId = window.setInterval(
+        this.step.bind(this),
+        (View.STEP_MILLIS - (this.speed))
+      );
+      return;
+    }
+    }
+    if (View.KEYS[event.keyCode] && this.running) {
       if (this.board.snake.array.length <3) {
       this.board.snake.array.push(View.KEYS[event.keyCode]);
       }
@@ -63,15 +69,20 @@
   View.prototype.render = function () {
     // simple text based rendering
     // this.$el.html(this.board.render());
-
+// debugger;
+    this.updateClasses([this.board.snake.head()], "head");
     this.updateClasses(this.board.snake.segments, "snake");
     this.updateClasses([this.board.apple.position], "apple");
   };
 
   View.prototype.updateClasses = function(coords, className) {
+
     this.$li.filter("." + className).removeClass();
 
     coords.forEach(function(coord){
+      if (typeof coord === 'undefined'){
+        return;
+      }
       var flatCoord = (coord.i * this.board.dim) + coord.j;
       this.$li.eq(flatCoord).addClass(className);
     }.bind(this));
@@ -103,7 +114,8 @@
   };
 
   View.prototype.step = function () {
-    updateMultiplier(this.board.apple.surroundings());
+    multiUpdate(this.board.apple.surroundings());
+    segmentsUpdate(this.board.snake.segments.length);
     if (this.board.snake.segments.length > 0) {
       //buffer input logic(allows for quick U-turn input)
       if (this.board.snake.array.length > 0) {
@@ -111,7 +123,6 @@
       }
 
       if(SG.Score >= 100 * this.speed){
-        console.log(this.speed);
         this.speed = Math.floor(SG.Score/100);
         window.clearInterval(window.intervalId);
 
