@@ -10,9 +10,18 @@
     var $speed = $("#snake-speed")[0];
     $speed.textContent = (100 - speed);
   };
+  multiUpdate = function(number){
+    var $multiplier = $("#snake-multi")[0];
+    $multiplier.textContent = number;
+  };
   segmentsUpdate = function(segments){
     var $segments = $("#snake-segments")[0];
     $segments.textContent = segments;
+  };
+  alertsUpdate = function(content, className, onOrOff){
+    var $alerts = $(".snake-alerts");
+    $alerts.toggleClass(className, onOrOff);
+    $alerts[0].textContent = content;
   };
   var Score = SG.Score = 0;
 

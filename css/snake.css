@@ -105,10 +105,26 @@ li {
 .snake {
   background: green;
   border: 2px solid black;
-  /*border-radius: 5px;*/
 }
 .head {
   background: green;
   border: 2px solid black;
   border-radius: 30%;
+}
+.snake-alerts{
+  display:none;
+}
+.gamewindow{
+  position: relative;
+}
+.display{
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 250px;
+  height: 50px;
+  margin-left: -125px;
+  margin-top: 0;
+  background: aliceblue;
 }

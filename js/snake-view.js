@@ -2,10 +2,7 @@
   if (typeof SG === "undefined") {
     window.SG = {};
   }
-  multiUpdate = function(number){
-    var $multiplier = $("#snake-multi")[0];
-    $multiplier.textContent = number;
-  };
+
 
   var View = SG.View = function ($el) {
     this.$el = $el;
@@ -14,8 +11,8 @@
     this.board = new SG.Board(20);
     this.setupGrid();
     this.running = false;
-    this.over = false;
-
+    this.over = true;
+    alertsUpdate("press start to begin","display", true);
     $(window).on("keydown", this.handleKeyEvent.bind(this));
   };
 
@@ -42,14 +39,17 @@
         scoreUpdate(0);
         this.speed = 0;
         SG.Score = 0;
+        alertsUpdate("","display", false);
         this.board.snake = new SG.Snake(this.board);
       }
       if (this.running){
       window.clearInterval(window.intervalId);
       this.running = false;
+      alertsUpdate("Paused, press start to continue","display", true);
       return;
     } else {
       this.running = true;
+      alertsUpdate("","display", false);
       window.intervalId = window.setInterval(
         this.step.bind(this),
         (View.STEP_MILLIS - (this.speed))
@@ -134,7 +134,7 @@
       this.board.snake.move();
       this.render();
     } else {
-      console.log("You Scored " + SG.Score + " points!");
+      alertsUpdate("You Scored " + SG.Score + " points!","display", true);
       window.clearInterval(window.intervalId);
       this.over = true;
       this.running = false;
