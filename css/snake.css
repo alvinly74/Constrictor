@@ -75,8 +75,8 @@ number {
 }
 
 #info{
-  position: fixed;
-  left: 50px;
+  position: absolute;
+  left: -80px;
   border: 5px solid black;
 }
 
@@ -91,7 +91,7 @@ ul:after {
 
 li {
   float: left;
-  border: 2px solid white;
+  border: 2px solid #FAFAFA;
   width: 20px;
   height: 20px;
 }
@@ -115,16 +115,21 @@ li {
   display:none;
 }
 .gamewindow{
+  width: 500px;
+  left: 50%;
+  margin-left: -250px;
   position: relative;
 }
 .display{
   display: block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 250px;
-  height: 50px;
-  margin-left: -125px;
-  margin-top: 0;
-  background: aliceblue;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 250px;
+    margin-left: -125px;
+    margin-top: 0;
+    background: rgba(240,248,255,1);
+    border: 5px solid;
+    opacity: 0.8;
+    border-radius: 20px;
 }
