@@ -2,7 +2,14 @@
   if (typeof SG === "undefined") {
     window.SG = {};
   }
-
+  scoreUpdate = function(score){
+    var $score = $("#snake-score")[0];
+    $score.textContent = score;
+  };
+  speedUpdate = function(speed){
+    var $speed = $("#snake-speed")[0];
+    $speed.textContent = speed;
+  };
   var Score = SG.Score = 0;
 
   var Coord = SG.Coord = function (i, j) {
@@ -117,11 +124,6 @@
     "S": new Coord(1, 0),
     "W": new Coord(0, -1)
   };
-  scoreUpdate = function(score){
-    var $score = $("#snake-score");
-    $score[0].textContent = score;
-  };
-
   Snake.prototype.eatApple = function () {
 
     if (this.head().equals(this.board.apple.position)) {

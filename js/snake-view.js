@@ -6,7 +6,7 @@
 
   var View = SG.View = function ($el) {
     this.$el = $el;
-    this.speed = 1;
+    this.speed = 0;
     this.score = SG.Score;
     this.board = new SG.Board(30);
     this.setupGrid();
@@ -91,8 +91,10 @@
   View.prototype.computeSpeed = function(){
     var speed = (View.STEP_MILLIS - this.speed);
     if (speed < 20){
+      speedUpdate(20);
       return 20;
     } else {
+      speedUpdate(speed);
       return speed;
     }
   };
@@ -105,7 +107,8 @@
       }
 
       if(SG.Score >= 100 * this.speed){
-        this.speed +=Math.floor(SG.Score/100);
+        console.log(this.speed);
+        this.speed = Math.floor(SG.Score/100);
         window.clearInterval(window.intervalId);
 
         window.intervalId = window.setInterval(
