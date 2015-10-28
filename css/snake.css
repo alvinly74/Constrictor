@@ -53,3 +53,7 @@ li {
   background: green;
   border: 2px solid black;
 }
+
+.inline{
+  display: inline-block;
+}

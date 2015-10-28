@@ -2,13 +2,16 @@
   if (typeof SG === "undefined") {
     window.SG = {};
   }
-
+  updateMultiplier = function(number){
+    var $multiplier = $("#snake-multi")[0];
+    $multiplier.textContent = number;
+  };
 
   var View = SG.View = function ($el) {
     this.$el = $el;
     this.speed = 0;
     this.score = SG.Score;
-    this.board = new SG.Board(30);
+    this.board = new SG.Board(25);
     this.setupGrid();
     this.running = false;
     this.over = false;
@@ -100,6 +103,7 @@
   };
 
   View.prototype.step = function () {
+    updateMultiplier(this.board.apple.surroundings());
     if (this.board.snake.segments.length > 0) {
       //buffer input logic(allows for quick U-turn input)
       if (this.board.snake.array.length > 0) {
