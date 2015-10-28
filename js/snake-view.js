@@ -37,6 +37,7 @@
         multiUpdate(0);
         speedUpdate(100);
         scoreUpdate(0);
+        appleUpdate(0);
         this.speed = 0;
         SG.Score = 0;
         alertsUpdate("","display", false);
@@ -102,7 +103,7 @@
     this.$li = this.$el.find("li");
   };
   View.prototype.computeSpeed = function(){
-    var speed = (View.STEP_MILLIS - this.speed);
+    var speed = (View.STEP_MILLIS - this.speed - Math.floor(this.board.snake.eatenApples/2));
     if (speed < 20){
       speedUpdate(20);
       return 20;

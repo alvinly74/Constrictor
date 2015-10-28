@@ -10,13 +10,17 @@
     var $speed = $("#snake-speed")[0];
     $speed.textContent = (100 - speed);
   };
+  segmentsUpdate = function(segments){
+    var $segments = $("#snake-segments")[0];
+    $segments.textContent = segments;
+  };
   multiUpdate = function(number){
     var $multiplier = $("#snake-multi")[0];
     $multiplier.textContent = number;
   };
-  segmentsUpdate = function(segments){
-    var $segments = $("#snake-segments")[0];
-    $segments.textContent = segments;
+  appleUpdate = function(number){
+    var $apple = $("#snake-apple")[0];
+    $apple.textContent = number;
   };
   alertsUpdate = function(content, className, onOrOff){
     var $alerts = $(".snake-alerts");
@@ -122,6 +126,7 @@
   };
 
   var Snake = SG.Snake = function (board) {
+    this.eatenApples = 0;
     this.dir = "N";
     this.turning = false;
     this.board = board;
@@ -141,8 +146,9 @@
   Snake.prototype.eatApple = function () {
 
     if (this.head().equals(this.board.apple.position)) {
-
-      SG.Score += this.segments.length * this.board.apple.surroundings();
+      this.eatenApples += 1;
+      appleUpdate(this.eatenApples);
+      SG.Score += Math.floor(this.segments.length * this.board.apple.surroundings() * (1 + (0.1 *this.eatenApples)));
       scoreUpdate(SG.Score);
       this.segments = [this.head()];
       this.growTurns = 100;
