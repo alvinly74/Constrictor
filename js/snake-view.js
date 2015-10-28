@@ -28,7 +28,7 @@
     32: "PAUSE"
   };
 
-  View.STEP_MILLIS = 101;
+  View.STEP_MILLIS = 100;
 
   View.prototype.handleKeyEvent = function (event) {
     if (View.KEYS[event.keyCode]) {
@@ -88,6 +88,14 @@
     this.$el.html(html);
     this.$li = this.$el.find("li");
   };
+  View.prototype.computeSpeed = function(){
+    var speed = (View.STEP_MILLIS - this.speed);
+    if (speed < 20){
+      return 20;
+    } else {
+      return speed;
+    }
+  };
 
   View.prototype.step = function () {
     if (this.board.snake.segments.length > 0) {
@@ -99,15 +107,16 @@
       if(SG.Score >= 100 * this.speed){
         this.speed +=Math.floor(SG.Score/100);
         window.clearInterval(window.intervalId);
+
         window.intervalId = window.setInterval(
           this.step.bind(this),
-          (View.STEP_MILLIS - (this.speed))
+          (this.computeSpeed())
         );
       }
       this.board.snake.move();
       this.render();
     } else {
-      alert("You Scored " + SG.Score + " points!");
+      console.log("You Scored " + SG.Score + " points!");
       window.clearInterval(window.intervalId);
       this.over = true;
       this.running = false;

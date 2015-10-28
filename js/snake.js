@@ -117,13 +117,17 @@
     "S": new Coord(1, 0),
     "W": new Coord(0, -1)
   };
-
+  scoreUpdate = function(score){
+    var $score = $("#snake-score");
+    $score[0].textContent = score;
+  };
 
   Snake.prototype.eatApple = function () {
 
     if (this.head().equals(this.board.apple.position)) {
 
       SG.Score += this.segments.length * this.board.apple.surroundings();
+      scoreUpdate(SG.Score);
       this.segments = [this.head()];
       this.growTurns += 10000;
       return true;
