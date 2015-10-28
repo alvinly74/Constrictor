@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Snake</title>
+    <link rel="stylesheet" type="text/css" href="../css/snake.css">
+  </head>
+
+  <body>
+    <h1>Constrictor</h1>
+    <div class='gamewindow'>
+      <div id="info">
+        <div class="score">
+          <h2>Score</h2>
+          <number id="snake-score">0</number>
+        </div>
+        <div class="speed">
+          <h2>Speed</h2>
+          <number id="snake-speed">0</number>
+        </div>
+        <div class="multi">
+          <h2>Multiplier</h2>
+          <number id="snake-multi">0</number>
+        </div>
+        <div class="segments">
+          <h2>segments</h2>
+          <number id="snake-segments">0</number>
+        </div>
+      </div>
+
+    <figure class="snake-alerts"></figure>
+    <figure class="snake-game">
+    </figure>
+    </div>
+    <div class="howTo">
+      <h2>How to play</h2>
+      <h3>To start and pause, press Spacebar</h3>
+      <h3>Move with WASD, or the arrow keys</h3>
+      <h3>Surround the apple to multiply score!</h3>
+    </div>
+    <script src="../js/jquery-1.9.1.js"></script>
+    <script src="../js/snake.js"></script>
+    <script src="../js/snake-view.js"></script>
+
+    <script>
+      $(function () {
+        new SG.View($(".snake-game"));
+      });
+    </script>
+    <script>
+    </script>
+  </body>
+</html>
