@@ -13,7 +13,7 @@
 
   Board.BLANK_SYMBOL = ".";
 
-  Board.blankGrid = function (dim) {
+  Board.prototype.blankGrid = function (dim) {
     var grid = [];
 
     for (var i = 0; i < dim; i++) {
