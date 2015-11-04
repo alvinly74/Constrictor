@@ -12,7 +12,7 @@
     this.setupGrid();
     this.running = false;
     this.over = true;
-    alertsUpdate(" The Goal is to Surround the Apple before eating press space to begin","display", true);
+    alertsUpdate(" The Goal is to Surround the Apple before eating. Press space to begin","display", true);
     $(".snake-alerts").prepend("<img id='theImg' src='assets/targetconsume.png'/>")
     $(window).on("keydown", this.handleKeyEvent.bind(this));
   };
