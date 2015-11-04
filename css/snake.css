@@ -123,7 +123,7 @@ li {
 .display{
   display: block;
     position: absolute;
-    top: 50%;
+    top: 10%;
     left: 50%;
     width: 250px;
     margin-left: -125px;
@@ -132,4 +132,9 @@ li {
     border: 5px solid;
     opacity: 0.8;
     border-radius: 20px;
+}
+
+#theImg{
+	width: 100%;
+	border: 3px solid black;
 }

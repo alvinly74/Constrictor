@@ -12,7 +12,8 @@
     this.setupGrid();
     this.running = false;
     this.over = true;
-    alertsUpdate("press start to begin","display", true);
+    alertsUpdate(" The Goal is to Surround the Apple before eating press space to begin","display", true);
+    $(".snake-alerts").prepend("<img id='theImg' src='assets/targetconsume.png'/>")
     $(window).on("keydown", this.handleKeyEvent.bind(this));
   };
 
@@ -46,7 +47,7 @@
       if (this.running){
       window.clearInterval(window.intervalId);
       this.running = false;
-      alertsUpdate("Paused, press start to continue","display", true);
+      alertsUpdate("Paused, press space to continue","display", true);
       return;
     } else {
       this.running = true;
