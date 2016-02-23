@@ -1,6 +1,6 @@
 Snake Project that calculates score based on length rather than amount of Apples.
 
-**[Live Demo](http://appacademy.github.io/snake.js/html/snake.html)**
+**[Live Demo](http://alvinly74.github.io/Constrictor/)**
 
 After the first apple, the snake will grow to a maximum of 100 segments. Score is calculated based on how many sides the snake surrounds the apple.
 
